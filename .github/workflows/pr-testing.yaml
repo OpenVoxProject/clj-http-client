@@ -6,6 +6,10 @@ on:
     branches:
       - main
 
+# minimal permissions
+permissions:
+  contents: read
+
 jobs:
   pr-testing:
     name: PR Testing
