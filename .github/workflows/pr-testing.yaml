@@ -41,3 +41,11 @@ jobs:
       - name: clojure tests
         run: lein test
         timeout-minutes: 30
+
+  tests:
+    needs:
+      - pr-testing
+    runs-on: ubuntu-24.04
+    name: Test suite
+    steps:
+      - run: echo Test suite completed
