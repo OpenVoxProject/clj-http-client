@@ -54,7 +54,7 @@
                          ;; that sets up the JVM classpaths during installation.
                          :jvm-opts ~(let [version (System/getProperty "java.version")
                                           [major minor _] (clojure.string/split version #"\.")
-                                          unsupported-ex (ex-info "Unsupported major Java version. Expects 8 or 11."
+                                          unsupported-ex (ex-info "Unsupported major Java version. Expects 17 or 21."
                                                            {:major major
                                                             :minor minor})]
                                       (condp = (java.lang.Integer/parseInt major)
