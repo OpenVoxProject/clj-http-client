@@ -76,7 +76,7 @@
 
   :plugins [[lein-parent "0.3.7"]
             [jonase/eastwood "1.2.2" :exclusions [org.clojure/clojure]]
-            [org.openvoxproject/i18n "0.9.3"]]
+            [org.openvoxproject/i18n "0.9.4"]]
 
   :eastwood {:continue-on-exception true
              :exclude-namespaces [;; linting this test throws and exception as test-utils/load-test-config
