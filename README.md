@@ -1,16 +1,14 @@
-# puppetlabs/http-client
-
-[![Build Status](https://travis-ci.com/puppetlabs/clj-http-client.png?branch=master)](https://travis-ci.com/puppetlabs/clj-http-client)
+# org.openvoxproject/http-client
 
 This is a wrapper around the [Apache HttpAsyncClient
 library](http://hc.apache.org/httpcomponents-asyncclient-4.0.x/) providing
-some extra functionality for configuring SSL in a way compatible with Puppet.
+some extra functionality for configuring SSL in a way compatible with OpenVox.
 
 ## Installation
 
 Add the following dependency to your `project.clj` file:
 
-[![Clojars Project](http://clojars.org/puppetlabs/http-client/latest-version.svg)](http://clojars.org/puppetlabs/http-client)
+[![Clojars Project](http://clojars.org/org.openvoxproject/http-client/latest-version.svg)](http://clojars.org/org.openvoxproject/http-client)
 
 ## Details
 
@@ -44,5 +42,4 @@ SafeRedirectedRequest and RedirectStrategy.
 
 ## Support
 
-We use the [Trapperkeeper project on JIRA](https://tickets.puppetlabs.com/browse/TK)
-for tickets on clj-http-client, although Github issues are welcome too.
+GitHub issues and PRs are welcome! Additionally, drop us a line in [the Vox Pupuli Slack](https://voxpupuli.slack.com).

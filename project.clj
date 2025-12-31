@@ -1,11 +1,11 @@
-(defproject puppetlabs/http-client "2.1.5-SNAPSHOT"
+(defproject org.openvoxproject/http-client "2.1.5-SNAPSHOT"
   :description "HTTP client wrapper"
   :license {:name "Apache License, Version 2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0.html"}
 
   :min-lein-version "2.9.1"
 
-  :parent-project {:coords [puppetlabs/clj-parent "5.6.7"]
+  :parent-project {:coords [org.openvoxproject/clj-parent "7.5.0"]
                    :inherit [:managed-dependencies]}
 
   ;; Abort when version ranges or version conflicts are detected in
@@ -20,8 +20,8 @@
                  [commons-io]
                  [io.dropwizard.metrics/metrics-core]
 
-                 [puppetlabs/ssl-utils]
-                 [puppetlabs/i18n]
+                 [org.openvoxproject/ssl-utils]
+                 [org.openvoxproject/i18n]
 
                  [org.slf4j/jul-to-slf4j]]
 
@@ -36,12 +36,12 @@
 
   :profiles {:provided {:dependencies [[org.bouncycastle/bcpkix-jdk18on]]}
              :defaults {:dependencies [[cheshire]
-                                       [puppetlabs/kitchensink :classifier "test"]
-                                       [puppetlabs/trapperkeeper]
-                                       [puppetlabs/trapperkeeper :classifier "test"]
-                                       [puppetlabs/trapperkeeper-webserver-jetty9]
-                                       [puppetlabs/trapperkeeper-webserver-jetty9 :classifier "test"]
-                                       [puppetlabs/ring-middleware]]
+                                       [org.openvoxproject/kitchensink :classifier "test"]
+                                       [org.openvoxproject/trapperkeeper]
+                                       [org.openvoxproject/trapperkeeper :classifier "test"]
+                                       [org.openvoxproject/trapperkeeper-webserver-jetty10]
+                                       [org.openvoxproject/trapperkeeper-webserver-jetty10 :classifier "test"]
+                                       [org.openvoxproject/ring-middleware]]
                         :resource-paths ["dev-resources"]
                         :jvm-opts ["-Djava.util.logging.config.file=dev-resources/logging.properties"]}
              :dev-deps  {:dependencies [[org.bouncycastle/bcpkix-jdk18on]]}
@@ -54,15 +54,12 @@
                          ;; that sets up the JVM classpaths during installation.
                          :jvm-opts ~(let [version (System/getProperty "java.version")
                                           [major minor _] (clojure.string/split version #"\.")
-                                          unsupported-ex (ex-info "Unsupported major Java version. Expects 8 or 11."
+                                          unsupported-ex (ex-info "Unsupported major Java version. Expects 17 or 21."
                                                            {:major major
                                                             :minor minor})]
                                       (condp = (java.lang.Integer/parseInt major)
-                                        1 (if (= 8 (java.lang.Integer/parseInt minor))
-                                            ["-Djava.security.properties==dev-resources/jdk8-fips-security"]
-                                            (throw unsupported-ex))
-                                        11 ["-Djava.security.properties==dev-resources/jdk11-fips-security"]
                                         17 ["-Djava.security.properties==dev-resources/jdk17-fips-security"]
+                                        21 ["-Djava.security.properties==dev-resources/jdk21-fips-security"]
                                         (throw unsupported-ex)))}
              :fips [:defaults :fips-deps]
              :sources-jar {:java-source-paths ^:replace []
@@ -70,8 +67,8 @@
                            :source-paths ^:replace ["src/clj" "src/java"]}}
 
   :deploy-repositories [["releases" {:url "https://clojars.org/repo"
-                                     :username :env/clojars_jenkins_username
-                                     :password :env/clojars_jenkins_password
+                                     :username :env/CLOJARS_USERNAME
+                                     :password :env/CLOJARS_PASSWORD
                                      :sign-releases false}]]
 
   :lein-release {:scm :git
@@ -79,7 +76,7 @@
 
   :plugins [[lein-parent "0.3.7"]
             [jonase/eastwood "1.2.2" :exclusions [org.clojure/clojure]]
-            [puppetlabs/i18n "0.9.2"]]
+            [org.openvoxproject/i18n "0.9.3"]]
 
   :eastwood {:continue-on-exception true
              :exclude-namespaces [;; linting this test throws and exception as test-utils/load-test-config
@@ -90,6 +87,4 @@
                                   puppetlabs.orchestrator.bolt.client]
              :exclude-linters [:no-ns-form-found :reflection :deprecations]
              :ignored-faults {:def-in-def {puppetlabs.http.client.async-plaintext-test [{:line 278}]}}}
-
-  :repositories [["puppet-releases" "https://artifactory.delivery.puppetlabs.net/artifactory/clojure-releases__local/"]
-                 ["puppet-snapshots" "https://artifactory.delivery.puppetlabs.net/artifactory/clojure-snapshots__local/"]])
+)
