@@ -74,7 +74,7 @@
   :lein-release {:scm :git
                  :deploy-via :lein-deploy}
 
-  :plugins [[lein-parent "0.3.7"]
+  :plugins [[lein-parent "0.3.9"]
             [jonase/eastwood "1.2.2" :exclusions [org.clojure/clojure]]
             [org.openvoxproject/i18n "0.9.4"]]
 
