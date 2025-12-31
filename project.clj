@@ -1,4 +1,4 @@
-(defproject org.openvoxproject/http-client "2.1.5"
+(defproject org.openvoxproject/http-client "2.1.6-SNAPSHOT"
   :description "HTTP client wrapper"
   :license {:name "Apache License, Version 2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0.html"}
