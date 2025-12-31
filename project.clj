@@ -75,7 +75,7 @@
                  :deploy-via :lein-deploy}
 
   :plugins [[lein-parent "0.3.7"]
-            [jonase/eastwood "1.2.2" :exclusions [org.clojure/clojure]]
+            [jonase/eastwood "1.4.3" :exclusions [org.clojure/clojure]]
             [org.openvoxproject/i18n "0.9.4"]]
 
   :eastwood {:continue-on-exception true
