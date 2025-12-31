@@ -5,7 +5,7 @@
             [puppetlabs.http.client.sync :as sync]
             [puppetlabs.http.client.test-common :refer :all]
             [puppetlabs.trapperkeeper.core :as tk]
-            [puppetlabs.trapperkeeper.services.webserver.jetty9-service :as jetty9]
+            [puppetlabs.trapperkeeper.services.webserver.jetty10-service :as jetty10]
             [puppetlabs.trapperkeeper.testutils.bootstrap :as testutils]
             [puppetlabs.trapperkeeper.testutils.logging :as testlogging]
             [puppetlabs.trapperkeeper.testutils.webserver :as testwebserver]
@@ -58,7 +58,7 @@
   (testing (format "sync client: HTTP method: '%s'" http-method)
     (testlogging/with-test-logging
       (testutils/with-app-with-config app
-        [jetty9/jetty9-service test-web-service]
+        [jetty10/jetty10-service test-web-service]
         {:webserver {:port 10000}}
         (testing "java sync client"
           (let [request-options (SimpleRequestOptions. (URI. "http://localhost:10000/hello/"))
@@ -75,7 +75,7 @@
 (deftest sync-client-head-test
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service test-web-service]
+      [jetty10/jetty10-service test-web-service]
       {:webserver {:port 10000}}
       (testing "java sync client"
         (let [request-options (SimpleRequestOptions. (URI. "http://localhost:10000/hello/"))
@@ -115,7 +115,7 @@
 (deftest sync-client-persistent-test
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service test-web-service]
+      [jetty10/jetty10-service test-web-service]
       {:webserver {:port 10000}}
       (testing "persistent java client"
         (let [request-options (RequestOptions. "http://localhost:10000/hello/")
@@ -209,7 +209,7 @@
 (deftest sync-client-as-test
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service test-web-service]
+      [jetty10/jetty10-service test-web-service]
       {:webserver {:port 10000}}
       (testing "java sync client: :as unspecified"
         (let [request-options (SimpleRequestOptions. (URI. "http://localhost:10000/hello/"))
@@ -250,7 +250,7 @@
 (deftest request-with-client-test
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service test-web-service]
+      [jetty10/jetty10-service test-web-service]
       {:webserver {:port 10000}}
       (let [client (HttpAsyncClients/createDefault)
             opts   {:method :get :url "http://localhost:10000/hello/"}]
@@ -268,7 +268,7 @@
 (deftest java-api-cookie-test
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service test-cookie-service]
+      [jetty10/jetty10-service test-cookie-service]
       {:webserver {:port 10000}}
       (let [client (Sync/createClient (ClientOptions.))]
         (testing "Set a cookie using Java API"
@@ -282,7 +282,7 @@
 (deftest clj-api-cookie-test
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service test-cookie-service]
+      [jetty10/jetty10-service test-cookie-service]
       {:webserver {:port 10000}}
       (let [client (sync/create-client {})]
         (testing "Set a cookie using Clojure API"
@@ -308,7 +308,7 @@
 (deftest sync-client-request-headers-test
   (testlogging/with-test-logging
     (testutils/with-app-with-config header-app
-      [jetty9/jetty9-service test-header-web-service]
+      [jetty10/jetty10-service test-header-web-service]
       {:webserver {:port 10000}}
       (testing "java sync client"
         (let [request-options (-> (SimpleRequestOptions. (URI. "http://localhost:10000/hello/"))
@@ -360,7 +360,7 @@
 (deftest sync-client-request-body-test
   (testlogging/with-test-logging
     (testutils/with-app-with-config req-body-app
-      [jetty9/jetty9-service test-body-web-service]
+      [jetty10/jetty10-service test-body-web-service]
       {:webserver {:port 10000}}
       (testing "java sync client: string body for post request with explicit
                 content type and UTF-8 encoding uses UTF-8 encoding"
@@ -448,7 +448,7 @@
   [desc opts accept-encoding content-encoding content-should-match?]
   (testlogging/with-test-logging
     (testutils/with-app-with-config req-body-app
-      [jetty9/jetty9-service test-compression-web-service]
+      [jetty10/jetty10-service test-compression-web-service]
       {:webserver {:port 10000}}
       (testing (str "java sync client: compression headers / response: " desc)
         (let [request-opts (cond-> (SimpleRequestOptions. (URI. "http://localhost:10000/hello/"))
@@ -486,7 +486,7 @@
 (deftest query-params-test-sync
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service test-params-web-service]
+      [jetty10/jetty10-service test-params-web-service]
       {:webserver {:port 8080}}
       (testing "URL Query Parameters work with the Java client"
         (let [request-options (SimpleRequestOptions. (URI. "http://localhost:8080/params?foo=bar&baz=lux"))
@@ -506,7 +506,7 @@
 (deftest redirect-test-sync
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service redirect-web-service]
+      [jetty10/jetty10-service redirect-web-service]
       {:webserver {:port 8080}}
       (testing (str "redirects on POST not followed by Java client "
                     "when forceRedirects option not set to true")

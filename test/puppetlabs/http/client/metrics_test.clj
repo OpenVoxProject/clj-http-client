@@ -6,7 +6,7 @@
             [puppetlabs.http.client.metrics :as metrics]
             [puppetlabs.http.client.sync :as sync]
             [puppetlabs.trapperkeeper.core :as tk]
-            [puppetlabs.trapperkeeper.services.webserver.jetty9-service :as jetty9]
+            [puppetlabs.trapperkeeper.services.webserver.jetty10-service :as jetty10]
             [puppetlabs.trapperkeeper.testutils.bootstrap :as testutils]
             [puppetlabs.trapperkeeper.testutils.logging :as testlogging]
             [puppetlabs.trapperkeeper.testutils.webserver :as testwebserver]
@@ -67,7 +67,7 @@
     (testlogging/with-test-logging
      (testutils/with-app-with-config
       app
-      [jetty9/jetty9-service test-metric-web-service]
+      [jetty10/jetty10-service test-metric-web-service]
       {:webserver {:port 10000}}
       (let [metric-registry (MetricRegistry.)
             hello-request-opts (RequestOptions. hello-url)
@@ -165,7 +165,7 @@
     (testlogging/with-test-logging
      (testutils/with-app-with-config
       app
-      [jetty9/jetty9-service test-metric-web-service]
+      [jetty10/jetty10-service test-metric-web-service]
       {:webserver {:port 10000}}
       (let [metric-registry (MetricRegistry.)]
         (with-open [client (async/create-client
@@ -253,7 +253,7 @@
     (testlogging/with-test-logging
      (testutils/with-app-with-config
       app
-      [jetty9/jetty9-service test-metric-web-service]
+      [jetty10/jetty10-service test-metric-web-service]
       {:webserver {:port 10000}}
       (let [metric-registry (MetricRegistry.)
             hello-request-opts (RequestOptions. hello-url)
@@ -352,7 +352,7 @@
     (testlogging/with-test-logging
      (testutils/with-app-with-config
       app
-      [jetty9/jetty9-service test-metric-web-service]
+      [jetty10/jetty10-service test-metric-web-service]
       {:webserver {:port 10000}}
       (let [metric-registry (MetricRegistry.)]
         (with-open [client (sync/create-client {:metric-registry metric-registry})]
@@ -630,7 +630,7 @@
     (testlogging/with-test-logging
      (testutils/with-app-with-config
       app
-      [jetty9/jetty9-service test-metric-web-service]
+      [jetty10/jetty10-service test-metric-web-service]
       {:webserver {:port 10000}}
       (testing "custom metric namespace works for java async client"
         (testing "metric prefix works"
@@ -744,7 +744,7 @@
   (testlogging/with-test-logging
     (testutils/with-app-with-config
      app
-     [jetty9/jetty9-service test-metric-web-service]
+     [jetty10/jetty10-service test-metric-web-service]
      {:webserver {:port 10000}}
      (testing "url-metrics can be disabled for clojure async client"
        (with-open [client (async/create-client {:metric-registry (MetricRegistry.)

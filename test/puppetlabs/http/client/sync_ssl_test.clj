@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all]
             [puppetlabs.http.client.sync :as sync]
             [puppetlabs.trapperkeeper.core :as tk]
-            [puppetlabs.trapperkeeper.services.webserver.jetty9-service :as jetty9]
+            [puppetlabs.trapperkeeper.services.webserver.jetty10-service :as jetty10]
             [puppetlabs.trapperkeeper.testutils.bootstrap :as testutils]
             [puppetlabs.trapperkeeper.testutils.logging :as testlogging]
             [schema.test :as schema-test])
@@ -30,7 +30,7 @@
 (deftest sync-client-test-from-pems
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service test-web-service]
+      [jetty10/jetty10-service test-web-service]
       {:webserver {:ssl-host    "0.0.0.0"
                    :ssl-port    10080
                    :ssl-ca-cert "./dev-resources/ssl/ca.pem"
@@ -55,7 +55,7 @@
 (deftest sync-client-test-from-ca-cert
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service test-web-service]
+      [jetty10/jetty10-service test-web-service]
       {:webserver {:ssl-host    "0.0.0.0"
                    :ssl-port    10080
                    :ssl-ca-cert "./dev-resources/ssl/ca.pem"
@@ -77,7 +77,7 @@
 (deftest sync-client-test-with-invalid-ca-cert
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service test-web-service]
+      [jetty10/jetty10-service test-web-service]
       {:webserver {:ssl-host    "0.0.0.0"
                    :ssl-port    10081
                    :ssl-ca-cert "./dev-resources/ssl/ca.pem"
@@ -112,7 +112,7 @@
   [server-protocols server-cipher-suites & body]
   `(testlogging/with-test-logging
     (testutils/with-app-with-config app#
-      [jetty9/jetty9-service test-web-service]
+      [jetty10/jetty10-service test-web-service]
       {:webserver (merge
                     {:ssl-host      "0.0.0.0"
                      :ssl-port      10080
@@ -184,4 +184,3 @@
               (java-https-get-with-protocols ["TLSv1.2"] nil))))
       (testing "clojure sync client"
         (is (java-unsupported-protocol-exception? (clj-https-get-with-protocols ["TLSv1.2"] nil)))))))
-

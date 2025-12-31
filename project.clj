@@ -39,8 +39,8 @@
                                        [org.openvoxproject/kitchensink :classifier "test"]
                                        [org.openvoxproject/trapperkeeper]
                                        [org.openvoxproject/trapperkeeper :classifier "test"]
-                                       [org.openvoxproject/trapperkeeper-webserver-jetty9]
-                                       [org.openvoxproject/trapperkeeper-webserver-jetty9 :classifier "test"]
+                                       [org.openvoxproject/trapperkeeper-webserver-jetty10]
+                                       [org.openvoxproject/trapperkeeper-webserver-jetty10 :classifier "test"]
                                        [org.openvoxproject/ring-middleware]]
                         :resource-paths ["dev-resources"]
                         :jvm-opts ["-Djava.util.logging.config.file=dev-resources/logging.properties"]}

@@ -6,7 +6,7 @@
             [puppetlabs.http.client.test-common :as test-common]
             [puppetlabs.i18n.core :as i18n]
             [puppetlabs.trapperkeeper.core :as tk]
-            [puppetlabs.trapperkeeper.services.webserver.jetty9-service :as jetty9]
+            [puppetlabs.trapperkeeper.services.webserver.jetty10-service :as jetty10]
             [puppetlabs.trapperkeeper.testutils.bootstrap :as testutils]
             [puppetlabs.trapperkeeper.testutils.logging :as testlogging]
             [puppetlabs.trapperkeeper.testutils.webserver :as testwebserver]
@@ -71,7 +71,7 @@
 (deftest persistent-async-client-test
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service test-web-service]
+      [jetty10/jetty10-service test-web-service]
       {:webserver {:port 10000}}
       (testing "java async client"
         (let [request-options (RequestOptions. (URI. "http://localhost:10000/hello/"))
@@ -171,7 +171,7 @@
 (deftest java-api-cookie-test
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service test-cookie-service]
+      [jetty10/jetty10-service test-cookie-service]
       {:webserver {:port 10000}}
       (let [client (Async/createClient (ClientOptions.))]
         (testing "Set a cookie using Java API"
@@ -184,7 +184,7 @@
 (deftest clj-api-cookie-test
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service test-cookie-service]
+      [jetty10/jetty10-service test-cookie-service]
       {:webserver {:port 10000}}
       (let [client (async/create-client {})]
         (testing "Set a cookie using Clojure API"
@@ -197,7 +197,7 @@
 (deftest request-with-client-test
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service test-web-service]
+      [jetty10/jetty10-service test-web-service]
       {:webserver {:port 10000}}
       (let [client (HttpAsyncClients/createDefault)
             opts   {:method :get :url "http://localhost:10000/hello/"}]
@@ -215,7 +215,7 @@
 (deftest query-params-test-async
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service test-common/test-params-web-service]
+      [jetty10/jetty10-service test-common/test-params-web-service]
       {:webserver {:port 8080}}
       (testing "URI Query Parameters work with the Java client"
           (let [client (Async/createClient (ClientOptions.))]
@@ -324,7 +324,7 @@
                          "WWW-Authenticate", "Proxy-Authorization", "Proxy-Authenticate"}]
       (create-redirect-web-service state)
       (testutils/with-app-with-config app
-        [jetty9/jetty9-service redirect-web-service-with-state]
+        [jetty10/jetty10-service redirect-web-service-with-state]
         {:webserver {:hello {:port 8081} :world {:port 8082}}}
         (testing "default redirect policy does not include authorization headers"
           (let [client (Async/createClient (ClientOptions.))
@@ -449,7 +449,7 @@
 (deftest redirect-test-async
   (testlogging/with-test-logging
     (testutils/with-app-with-config app
-      [jetty9/jetty9-service test-common/redirect-web-service]
+      [jetty10/jetty10-service test-common/redirect-web-service]
       {:webserver {:port 8080}}
       (testing (str "redirects on POST not followed by persistent Java client "
                     "when forceRedirects option not set to true")
