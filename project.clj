@@ -1,11 +1,11 @@
-(defproject org.openvoxproject/http-client "2.1.7-SNAPSHOT"
+(defproject org.openvoxproject/http-client "2.2.0-SNAPSHOT"
   :description "HTTP client wrapper"
   :license {:name "Apache License, Version 2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0.html"}
 
   :min-lein-version "2.9.1"
 
-  :parent-project {:coords [org.openvoxproject/clj-parent "7.5.1"]
+  :parent-project {:coords [org.openvoxproject/clj-parent "7.6.0-SNAPSHOT"]
                    :inherit [:managed-dependencies]}
 
   ;; Abort when version ranges or version conflicts are detected in
@@ -74,9 +74,9 @@
   :lein-release {:scm :git
                  :deploy-via :lein-deploy}
 
-  :plugins [[lein-parent "0.3.7"]
-            [jonase/eastwood "1.2.2" :exclusions [org.clojure/clojure]]
-            [org.openvoxproject/i18n "0.9.4"]]
+  :plugins [[lein-parent "0.3.9"]
+            [jonase/eastwood "1.4.3" :exclusions [org.clojure/clojure]]
+            [org.openvoxproject/i18n "1.0.0-SNAPSHOT"]]
 
   :eastwood {:continue-on-exception true
              :exclude-namespaces [;; linting this test throws and exception as test-utils/load-test-config
