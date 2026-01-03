@@ -5,7 +5,7 @@
 
   :min-lein-version "2.9.1"
 
-  :parent-project {:coords [org.openvoxproject/clj-parent "7.6.0-SNAPSHOT"]
+  :parent-project {:coords [org.openvoxproject/clj-parent "7.6.3"]
                    :inherit [:managed-dependencies]}
 
   ;; Abort when version ranges or version conflicts are detected in
@@ -38,14 +38,20 @@
              :defaults {:dependencies [[cheshire]
                                        [org.openvoxproject/kitchensink :classifier "test"]
                                        [org.openvoxproject/trapperkeeper]
-                                       [org.openvoxproject/trapperkeeper :classifier "test"]
-                                       [org.openvoxproject/trapperkeeper-webserver-jetty10]
-                                       [org.openvoxproject/trapperkeeper-webserver-jetty10 :classifier "test"]
-                                       [org.openvoxproject/ring-middleware]]
+                                       [org.openvoxproject/trapperkeeper :classifier "test"]]
                         :resource-paths ["dev-resources"]
                         :jvm-opts ["-Djava.util.logging.config.file=dev-resources/logging.properties"]}
              :dev-deps  {:dependencies [[org.bouncycastle/bcpkix-jdk18on]]}
-             :dev [:defaults :dev-deps]
+             :dev [:defaults :dev-deps :test]
+             ;; These dependencies are only used for tests. When we are doing clj-parent updates and updating
+             ;; trapperkeeper-webserver-jetty10 and/or ring-middleware at the same time as updating this project
+             ;; we end up with circular dependency issues, since we have to make version bumps in clj-parent first.
+             ;; To avoid this, we pull in whatever the latest we can find on clojars is at test time, since it shouldn't
+             ;; matter too terribly much. Ignore the warning that appears when runninng `lein test`.
+             :test {:pedantic? :warn
+                    :dependencies [[org.openvoxproject/trapperkeeper-webserver-jetty10 "[1.0.0,)"]
+                                  [org.openvoxproject/trapperkeeper-webserver-jetty10 "[1.0.0,)":classifier "test"]
+                                  [org.openvoxproject/ring-middleware "[2.0.0,)"]]}
              :fips-deps {:dependencies [[org.bouncycastle/bcpkix-fips]
                                         [org.bouncycastle/bc-fips]
                                         [org.bouncycastle/bctls-fips]]
@@ -76,7 +82,7 @@
 
   :plugins [[lein-parent "0.3.9"]
             [jonase/eastwood "1.4.3" :exclusions [org.clojure/clojure]]
-            [org.openvoxproject/i18n "1.0.0-SNAPSHOT"]]
+            [org.openvoxproject/i18n "1.0.2"]]
 
   :eastwood {:continue-on-exception true
              :exclude-namespaces [;; linting this test throws and exception as test-utils/load-test-config
