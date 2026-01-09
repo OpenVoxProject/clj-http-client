@@ -22,7 +22,7 @@
   :managed-dependencies [[org.clojure/clojure "1.11.2"]
                          [org.slf4j/slf4j-api ~slf4j-version]
                          [org.slf4j/jul-to-slf4j ~slf4j-version]
-                         [commons-codec "1.15"]
+                         [commons-codec "1.20.0"]
                          [org.bouncycastle/bcpkix-jdk18on "1.83"]
                          [org.bouncycastle/bcpkix-fips "1.0.8"]
                          [org.bouncycastle/bc-fips "1.0.2.6"]
