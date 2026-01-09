@@ -19,7 +19,7 @@
   ;; and to avoid having to define versions in multiple places. If a component
   ;; defined under :dependencies ends up causing an error due to :pedantic? :abort,
   ;; because it is a dep of a dep with a different version, move it here.
-  :managed-dependencies [[org.clojure/clojure "1.11.2"]
+  :managed-dependencies [[org.clojure/clojure "1.12.4"]
                          [org.slf4j/slf4j-api ~slf4j-version]
                          [org.slf4j/jul-to-slf4j ~slf4j-version]
                          [commons-codec "1.20.0"]
