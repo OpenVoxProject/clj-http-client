@@ -35,7 +35,7 @@
                  [commons-io "2.21.0"]
                  [io.dropwizard.metrics/metrics-core "3.2.6"]
                  
-                 [org.openvoxproject/ssl-utils "3.6.1"]
+                 [org.openvoxproject/ssl-utils "3.6.2"]
                  [org.openvoxproject/i18n ~i18n-version]
                  
                  [org.slf4j/jul-to-slf4j]]
