@@ -32,7 +32,7 @@
 
                  [org.apache.httpcomponents/httpasyncclient "4.1.5"]
                  [prismatic/schema "1.1.12"]
-                 [commons-io "2.20.0"]
+                 [commons-io "2.21.0"]
                  [io.dropwizard.metrics/metrics-core "3.2.6"]
                  
                  [org.openvoxproject/ssl-utils "3.6.1"]
