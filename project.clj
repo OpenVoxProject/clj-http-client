@@ -1,3 +1,8 @@
+(def trapperkeeper-version "4.3.0")
+(def trapperkeeper-webserver-jetty10-version "1.1.0")
+(def i18n-version "1.0.2")
+(def slf4j-version "2.0.17")
+
 (defproject org.openvoxproject/http-client "2.2.1-SNAPSHOT"
   :description "HTTP client wrapper"
   :license {:name "Apache License, Version 2.0"
@@ -5,24 +10,34 @@
 
   :min-lein-version "2.9.1"
 
-  :parent-project {:coords [org.openvoxproject/clj-parent "7.6.3"]
-                   :inherit [:managed-dependencies]}
-
   ;; Abort when version ranges or version conflicts are detected in
   ;; dependencies. Also supports :warn to simply emit warnings.
   ;; requires lein 2.2.0+.
   :pedantic? :abort
 
+  ;; These are to enforce consistent versions across dependencies of dependencies,
+  ;; and to avoid having to define versions in multiple places. If a component
+  ;; defined under :dependencies ends up causing an error due to :pedantic? :abort,
+  ;; because it is a dep of a dep with a different version, move it here.
+  :managed-dependencies [[org.clojure/clojure "1.11.2"]
+                         [org.slf4j/slf4j-api ~slf4j-version]
+                         [org.slf4j/jul-to-slf4j ~slf4j-version]
+                         [commons-codec "1.15"]
+                         [org.bouncycastle/bcpkix-jdk18on "1.83"]
+                         [org.bouncycastle/bcpkix-fips "1.0.8"]
+                         [org.bouncycastle/bc-fips "1.0.2.6"]
+                         [org.bouncycastle/bctls-fips "1.0.19"]]
+
   :dependencies [[org.clojure/clojure]
 
-                 [org.apache.httpcomponents/httpasyncclient]
-                 [prismatic/schema]
-                 [commons-io]
-                 [io.dropwizard.metrics/metrics-core]
-
-                 [org.openvoxproject/ssl-utils]
-                 [org.openvoxproject/i18n]
-
+                 [org.apache.httpcomponents/httpasyncclient "4.1.5"]
+                 [prismatic/schema "1.1.12"]
+                 [commons-io "2.20.0"]
+                 [io.dropwizard.metrics/metrics-core "3.2.2"]
+                 
+                 [org.openvoxproject/ssl-utils "3.6.1"]
+                 [org.openvoxproject/i18n ~i18n-version]
+                 
                  [org.slf4j/jul-to-slf4j]]
 
   :source-paths ["src/clj"]
@@ -35,23 +50,18 @@
   :classifiers [["sources" :sources-jar]]
 
   :profiles {:provided {:dependencies [[org.bouncycastle/bcpkix-jdk18on]]}
-             :defaults {:dependencies [[cheshire]
-                                       [org.openvoxproject/kitchensink :classifier "test"]
-                                       [org.openvoxproject/trapperkeeper]
-                                       [org.openvoxproject/trapperkeeper :classifier "test"]]
+             :defaults {:dependencies [[cheshire "5.10.2"]
+                                       [org.openvoxproject/kitchensink "3.5.3" :classifier "test"]
+                                       [org.openvoxproject/trapperkeeper ~trapperkeeper-version]
+                                       [org.openvoxproject/trapperkeeper ~trapperkeeper-version :classifier "test"]]
                         :resource-paths ["dev-resources"]
                         :jvm-opts ["-Djava.util.logging.config.file=dev-resources/logging.properties"]}
              :dev-deps  {:dependencies [[org.bouncycastle/bcpkix-jdk18on]]}
              :dev [:defaults :dev-deps :test]
-             ;; These dependencies are only used for tests. When we are doing clj-parent updates and updating
-             ;; trapperkeeper-webserver-jetty10 and/or ring-middleware at the same time as updating this project
-             ;; we end up with circular dependency issues, since we have to make version bumps in clj-parent first.
-             ;; To avoid this, we pull in whatever the latest we can find on clojars is at test time, since it shouldn't
-             ;; matter too terribly much. Ignore the warning that appears when runninng `lein test`.
              :test {:pedantic? :warn
-                    :dependencies [[org.openvoxproject/trapperkeeper-webserver-jetty10 "[1.0.0,)"]
-                                  [org.openvoxproject/trapperkeeper-webserver-jetty10 "[1.0.0,)":classifier "test"]
-                                  [org.openvoxproject/ring-middleware "[2.0.0,)"]]}
+                    :dependencies [[org.openvoxproject/trapperkeeper-webserver-jetty10 ~trapperkeeper-webserver-jetty10-version]
+                                  [org.openvoxproject/trapperkeeper-webserver-jetty10 ~trapperkeeper-webserver-jetty10-version :classifier "test"]
+                                  [org.openvoxproject/ring-middleware "2.1.0"]]}
              :fips-deps {:dependencies [[org.bouncycastle/bcpkix-fips]
                                         [org.bouncycastle/bc-fips]
                                         [org.bouncycastle/bctls-fips]]
@@ -80,9 +90,8 @@
   :lein-release {:scm :git
                  :deploy-via :lein-deploy}
 
-  :plugins [[lein-parent "0.3.9"]
-            [jonase/eastwood "1.4.3" :exclusions [org.clojure/clojure]]
-            [org.openvoxproject/i18n "1.0.2"]]
+  :plugins [[jonase/eastwood "1.4.3" :exclusions [org.clojure/clojure]]
+            [org.openvoxproject/i18n ~i18n-version]]
 
   :eastwood {:continue-on-exception true
              :exclude-namespaces [;; linting this test throws and exception as test-utils/load-test-config
