@@ -1,6 +1,6 @@
 (def trapperkeeper-version "4.3.0")
 (def trapperkeeper-webserver-jetty10-version "1.1.0")
-(def i18n-version "1.0.2")
+(def i18n-version "1.0.3")
 (def slf4j-version "2.0.17")
 
 (defproject org.openvoxproject/http-client "2.2.2-SNAPSHOT"
