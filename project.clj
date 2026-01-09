@@ -31,7 +31,7 @@
   :dependencies [[org.clojure/clojure]
 
                  [org.apache.httpcomponents/httpasyncclient "4.1.5"]
-                 [prismatic/schema "1.1.12"]
+                 [prismatic/schema "1.4.1"]
                  [commons-io "2.21.0"]
                  [io.dropwizard.metrics/metrics-core "3.2.6"]
                  
