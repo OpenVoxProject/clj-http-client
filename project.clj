@@ -50,7 +50,7 @@
   :classifiers [["sources" :sources-jar]]
 
   :profiles {:provided {:dependencies [[org.bouncycastle/bcpkix-jdk18on]]}
-             :defaults {:dependencies [[cheshire "5.10.2"]
+             :defaults {:dependencies [[cheshire "5.13.0"]
                                        [org.openvoxproject/kitchensink "3.5.3" :classifier "test"]
                                        [org.openvoxproject/trapperkeeper ~trapperkeeper-version]
                                        [org.openvoxproject/trapperkeeper ~trapperkeeper-version :classifier "test"]]
