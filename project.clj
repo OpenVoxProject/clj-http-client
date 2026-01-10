@@ -61,7 +61,7 @@
              :test {:pedantic? :warn
                     :dependencies [[org.openvoxproject/trapperkeeper-webserver-jetty10 ~trapperkeeper-webserver-jetty10-version]
                                   [org.openvoxproject/trapperkeeper-webserver-jetty10 ~trapperkeeper-webserver-jetty10-version :classifier "test"]
-                                  [org.openvoxproject/ring-middleware "2.1.0"]]}
+                                  [org.openvoxproject/ring-middleware "2.1.1"]]}
              :fips-deps {:dependencies [[org.bouncycastle/bcpkix-fips]
                                         [org.bouncycastle/bc-fips]
                                         [org.bouncycastle/bctls-fips]]
