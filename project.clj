@@ -1,5 +1,5 @@
 (def trapperkeeper-version "4.3.2")
-(def trapperkeeper-webserver-jetty10-version "1.1.2")
+(def trapperkeeper-webserver-jetty10-version "1.1.0")
 (def i18n-version "1.0.3")
 (def slf4j-version "2.0.17")
 
