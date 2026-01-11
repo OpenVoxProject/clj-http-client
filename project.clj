@@ -33,7 +33,7 @@
                  [org.apache.httpcomponents/httpasyncclient "4.1.5"]
                  [prismatic/schema "1.4.1"]
                  [commons-io "2.21.0"]
-                 [io.dropwizard.metrics/metrics-core "3.2.6"]
+                 [io.dropwizard.metrics/metrics-core "4.2.37"]
                  
                  [org.openvoxproject/ssl-utils "3.6.2"]
                  [org.openvoxproject/i18n ~i18n-version]
