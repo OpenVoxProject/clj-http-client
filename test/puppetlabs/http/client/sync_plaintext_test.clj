@@ -273,7 +273,7 @@
       (let [client (Sync/createClient (ClientOptions.))]
         (testing "Set a cookie using Java API"
           (let [response (.get client (RequestOptions. "http://localhost:10000/cookietest"))]
-            (is (= "session_id=session-id-hash\nsomeothercookie=somevalue;Path=/;Secure" (.get (.getHeaders response) "set-cookie")))
+            (is (= "session_id=session-id-hash\nsomeothercookie=somevalue; Path=/; Secure" (.get (.getHeaders response) "set-cookie")))
             (is (= 200 (.getStatus response)))))
         (testing "Check if cookie still exists"
           (let [response (.get client (RequestOptions. "http://localhost:10000/cookiecheck"))]
