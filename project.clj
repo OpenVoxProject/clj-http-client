@@ -1,5 +1,3 @@
-(def trapperkeeper-version "4.3.2")
-(def trapperkeeper-webserver-jetty10-version "1.1.0")
 (def i18n-version "1.0.3")
 (def slf4j-version "2.0.17")
 
@@ -15,30 +13,40 @@
   ;; requires lein 2.2.0+.
   :pedantic? :abort
 
-  ;; These are to enforce consistent versions across dependencies of dependencies,
-  ;; and to avoid having to define versions in multiple places. If a component
-  ;; defined under :dependencies ends up causing an error due to :pedantic? :abort,
-  ;; because it is a dep of a dep with a different version, move it here.
+  ;; Generally, try to keep version pins in :managed-dependencies and the libraries
+  ;; this project actually uses in :dependencies, inheriting the version from
+  ;; :managed-dependencies. This prevents endless version conflicts due to deps of deps.
+  ;; Renovate should keep the versions largely in sync between projects.
   :managed-dependencies [[org.clojure/clojure "1.12.4"]
-                         [org.slf4j/slf4j-api ~slf4j-version]
-                         [org.slf4j/jul-to-slf4j ~slf4j-version]
+                         [cheshire "5.13.0"]
                          [commons-codec "1.20.0"]
+                         [commons-io "2.21.0"]
+                         [io.dropwizard.metrics/metrics-core "3.2.6"]
+                         [org.apache.httpcomponents/httpasyncclient "4.1.5"]
                          [org.bouncycastle/bcpkix-jdk18on "1.83"]
                          [org.bouncycastle/bcpkix-fips "1.0.8"]
                          [org.bouncycastle/bc-fips "1.0.2.6"]
-                         [org.bouncycastle/bctls-fips "1.0.19"]]
+                         [org.bouncycastle/bctls-fips "1.0.19"]
+                         [org.openvoxproject/i18n ~i18n-version]
+                         [org.openvoxproject/kitchensink "3.5.5" :classifier "test"]
+                         [org.openvoxproject/ring-middleware "2.1.2"]
+                         [org.openvoxproject/ssl-utils "3.6.2"]
+                         [org.openvoxproject/trapperkeeper "4.3.2"]
+                         [org.openvoxproject/trapperkeeper "4.3.2" :classifier "test"]
+                         [org.openvoxproject/trapperkeeper-webserver-jetty10 "1.1.0"]
+                         [org.openvoxproject/trapperkeeper-webserver-jetty10 "1.1.0" :classifier "test"]
+                         [org.slf4j/slf4j-api ~slf4j-version]
+                         [org.slf4j/jul-to-slf4j ~slf4j-version]
+                         [prismatic/schema "1.4.1"]]
 
   :dependencies [[org.clojure/clojure]
-
-                 [org.apache.httpcomponents/httpasyncclient "4.1.5"]
-                 [prismatic/schema "1.4.1"]
-                 [commons-io "2.21.0"]
-                 [io.dropwizard.metrics/metrics-core "3.2.6"]
-                 
-                 [org.openvoxproject/ssl-utils "3.6.2"]
-                 [org.openvoxproject/i18n ~i18n-version]
-                 
-                 [org.slf4j/jul-to-slf4j]]
+                 [commons-io]
+                 [io.dropwizard.metrics/metrics-core]
+                 [org.apache.httpcomponents/httpasyncclient]
+                 [org.openvoxproject/ssl-utils]
+                 [org.openvoxproject/i18n]
+                 [org.slf4j/jul-to-slf4j]
+                 [prismatic/schema]]
 
   :source-paths ["src/clj"]
   :java-source-paths ["src/java"]
@@ -50,18 +58,18 @@
   :classifiers [["sources" :sources-jar]]
 
   :profiles {:provided {:dependencies [[org.bouncycastle/bcpkix-jdk18on]]}
-             :defaults {:dependencies [[cheshire "5.13.0"]
-                                       [org.openvoxproject/kitchensink "3.5.5" :classifier "test"]
-                                       [org.openvoxproject/trapperkeeper ~trapperkeeper-version]
-                                       [org.openvoxproject/trapperkeeper ~trapperkeeper-version :classifier "test"]]
+             :defaults {:dependencies [[cheshire]
+                                       [org.openvoxproject/kitchensink :classifier "test"]
+                                       [org.openvoxproject/trapperkeeper]
+                                       [org.openvoxproject/trapperkeeper :classifier "test"]]
                         :resource-paths ["dev-resources"]
                         :jvm-opts ["-Djava.util.logging.config.file=dev-resources/logging.properties"]}
              :dev-deps  {:dependencies [[org.bouncycastle/bcpkix-jdk18on]]}
              :dev [:defaults :dev-deps :test]
              :test {:pedantic? :warn
-                    :dependencies [[org.openvoxproject/trapperkeeper-webserver-jetty10 ~trapperkeeper-webserver-jetty10-version]
-                                  [org.openvoxproject/trapperkeeper-webserver-jetty10 ~trapperkeeper-webserver-jetty10-version :classifier "test"]
-                                  [org.openvoxproject/ring-middleware "2.1.2"]]}
+                    :dependencies [[org.openvoxproject/trapperkeeper-webserver-jetty10 ]
+                                  [org.openvoxproject/trapperkeeper-webserver-jetty10 :classifier "test"]
+                                  [org.openvoxproject/ring-middleware]]}
              :fips-deps {:dependencies [[org.bouncycastle/bcpkix-fips]
                                         [org.bouncycastle/bc-fips]
                                         [org.bouncycastle/bctls-fips]]
