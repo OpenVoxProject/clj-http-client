@@ -21,7 +21,7 @@
                          [cheshire "5.13.0"]
                          [commons-codec "1.20.0"]
                          [commons-io "2.21.0"]
-                         [io.dropwizard.metrics/metrics-core "3.2.6"]
+                         [io.dropwizard.metrics/metrics-core "4.2.38"]
                          [org.apache.httpcomponents/httpasyncclient "4.1.5"]
                          [org.bouncycastle/bcpkix-jdk18on "1.83"]
                          [org.bouncycastle/bcpkix-fips "1.0.8"]
