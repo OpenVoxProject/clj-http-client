@@ -20,7 +20,7 @@
   :managed-dependencies [[org.clojure/clojure "1.12.4"]
                          [cheshire "6.2.0"]
                          [commons-codec "1.21.0"]
-                         [commons-io "2.21.0"]
+                         [commons-io "2.22.0"]
                          [io.dropwizard.metrics/metrics-core "3.2.6"]
                          [org.apache.httpcomponents/httpasyncclient "4.1.5"]
                          [org.bouncycastle/bcpkix-jdk18on "1.84"]
