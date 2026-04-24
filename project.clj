@@ -1,4 +1,4 @@
-(def i18n-version "1.0.3")
+(def i18n-version "1.0.4")
 (def slf4j-version "2.0.17")
 
 (defproject org.openvoxproject/http-client "2.2.6-SNAPSHOT"
