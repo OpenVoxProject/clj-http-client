@@ -78,12 +78,13 @@
                          ;; that sets up the JVM classpaths during installation.
                          :jvm-opts ~(let [version (System/getProperty "java.version")
                                           [major minor _] (clojure.string/split version #"\.")
-                                          unsupported-ex (ex-info "Unsupported major Java version. Expects 17 or 21."
+                                          unsupported-ex (ex-info "Unsupported major Java version. Expects 17, 21 or 25."
                                                            {:major major
                                                             :minor minor})]
                                       (condp = (java.lang.Integer/parseInt major)
                                         17 ["-Djava.security.properties==dev-resources/jdk17-fips-security"]
                                         21 ["-Djava.security.properties==dev-resources/jdk21-fips-security"]
+                                        25 ["-Djava.security.properties==dev-resources/jdk25-fips-security"]
                                         (throw unsupported-ex)))}
              :fips [:defaults :fips-deps]
              :sources-jar {:java-source-paths ^:replace []
