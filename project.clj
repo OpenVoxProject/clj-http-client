@@ -1,7 +1,7 @@
 (def i18n-version "1.0.4")
 (def slf4j-version "2.0.17")
 
-(defproject org.openvoxproject/http-client "2.2.9-SNAPSHOT"
+(defproject org.openvoxproject/http-client "2.3.0-SNAPSHOT"
   :description "HTTP client wrapper"
   :license {:name "Apache License, Version 2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0.html"}
@@ -33,8 +33,8 @@
                          [org.openvoxproject/ssl-utils "3.6.4"]
                          [org.openvoxproject/trapperkeeper "4.3.5"]
                          [org.openvoxproject/trapperkeeper "4.3.5" :classifier "test"]
-                         [org.openvoxproject/trapperkeeper-webserver-jetty10 "1.1.8"]
-                         [org.openvoxproject/trapperkeeper-webserver-jetty10 "1.1.8" :classifier "test"]
+                         [org.openvoxproject/trapperkeeper-webserver "10.0.0"]
+                         [org.openvoxproject/trapperkeeper-webserver "10.0.0" :classifier "test"]
                          [org.slf4j/slf4j-api ~slf4j-version]
                          [org.slf4j/jul-to-slf4j ~slf4j-version]
                          [prismatic/schema "1.4.1"]]
@@ -67,8 +67,8 @@
              :dev-deps  {:dependencies [[org.bouncycastle/bcpkix-jdk18on]]}
              :dev [:defaults :dev-deps :test]
              :test {:pedantic? :warn
-                    :dependencies [[org.openvoxproject/trapperkeeper-webserver-jetty10 ]
-                                  [org.openvoxproject/trapperkeeper-webserver-jetty10 :classifier "test"]
+                    :dependencies [[org.openvoxproject/trapperkeeper-webserver]
+                                  [org.openvoxproject/trapperkeeper-webserver :classifier "test"]
                                   [org.openvoxproject/ring-middleware]]}
              :fips-deps {:dependencies [[org.bouncycastle/bcpkix-fips]
                                         [org.bouncycastle/bc-fips]
