@@ -25,7 +25,7 @@
                          [org.apache.httpcomponents/httpasyncclient "4.1.5"]
                          [org.bouncycastle/bcpkix-jdk18on "1.84"]
                          [org.bouncycastle/bcpkix-fips "1.0.8"]
-                         [org.bouncycastle/bc-fips "1.0.2.6"]
+                         [org.bouncycastle/bc-fips "1.0.2.7"]
                          [org.bouncycastle/bctls-fips "1.0.19"]
                          [org.openvoxproject/i18n ~i18n-version]
                          [org.openvoxproject/kitchensink "3.5.7" :classifier "test"]
