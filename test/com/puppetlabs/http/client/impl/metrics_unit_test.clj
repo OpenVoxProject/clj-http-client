@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all]
             [puppetlabs.http.client.metrics :as metrics]
             [schema.test :as schema-test])
-  (:import (com.codahale.metrics MetricRegistry)
+  (:import (io.dropwizard.metrics5 MetricRegistry)
            (com.puppetlabs.http.client.metrics Metrics)
            (org.apache.http.message BasicHttpRequest)
            (clojure.lang ExceptionInfo)
@@ -13,6 +13,9 @@
 
 (defn add-metric-ns [string]
   (str "puppetlabs.http-client.experimental." string))
+
+(defn timer-key-strings [metric-registry]
+  (set (map str (keys (.getTimers metric-registry)))))
 
 (deftest start-full-response-timers-test
   (testing "startFullResponseTimers creates the right timers"
@@ -25,7 +28,7 @@
                                               nil
                                               Metrics/DEFAULT_NAMESPACE_PREFIX
                                               true)
-          (is (= (set (list url-id url-method-id)) (set (keys (.getTimers metric-registry)))))))
+          (is (= (set (list url-id url-method-id)) (timer-key-strings metric-registry)))))
       (testing "metric id timers are not created for a request with an empty metric id"
         (let [metric-registry (MetricRegistry.)]
           (TimerUtils/startFullResponseTimers metric-registry
@@ -33,7 +36,7 @@
                                               (into-array String [])
                                               Metrics/DEFAULT_NAMESPACE_PREFIX
                                               true)
-          (is (= (set (list url-id url-method-id)) (set (keys (.getTimers metric-registry)))))))
+          (is (= (set (list url-id url-method-id)) (timer-key-strings metric-registry)))))
       (testing "metric id timers are created correctly for a request with a metric id"
         (let [metric-registry (MetricRegistry.)]
           (TimerUtils/startFullResponseTimers metric-registry
@@ -45,7 +48,7 @@
                             (add-metric-ns "with-metric-id.foo.full-response")
                             (add-metric-ns "with-metric-id.foo.bar.full-response")
                             (add-metric-ns "with-metric-id.foo.bar.baz.full-response")))
-                 (set (keys (.getTimers metric-registry)))))))
+                 (timer-key-strings metric-registry)))))
       (testing "url timers should strip off username, password, query string, and fragment"
         (let [metric-registry (MetricRegistry.)]
           (TimerUtils/startFullResponseTimers
@@ -76,10 +79,10 @@
            true)
           (is (= (set (list
                        (add-metric-ns
-                        "with-url.http://localhost:1234/foo,bar/baz.full-response")
+                        "with-url.http://localhost:1234/foo\\,bar/baz.full-response")
                        (add-metric-ns
-                        "with-url-and-method.http://localhost:1234/foo,bar/baz.GET.full-response")))
-                 (set (keys (.getTimers metric-registry))))))))))
+                        "with-url-and-method.http://localhost:1234/foo\\,bar/baz.GET.full-response")))
+                 (timer-key-strings metric-registry))))))))
 
 (deftest url->metric-url-test
   (testing "url->metric-url strips username, password, query params, and path fragment off of url"

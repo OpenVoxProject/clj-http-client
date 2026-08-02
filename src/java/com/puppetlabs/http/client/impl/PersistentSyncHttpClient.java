@@ -1,6 +1,6 @@
 package com.puppetlabs.http.client.impl;
 
-import com.codahale.metrics.MetricRegistry;
+import io.dropwizard.metrics5.MetricRegistry;
 import com.puppetlabs.http.client.HttpClientException;
 import com.puppetlabs.http.client.Response;
 import com.puppetlabs.http.client.RequestOptions;
