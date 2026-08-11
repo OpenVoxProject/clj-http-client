@@ -30,7 +30,7 @@
                          [org.openvoxproject/i18n ~i18n-version]
                          [org.openvoxproject/kitchensink "3.5.8" :classifier "test"]
                          [org.openvoxproject/ring-middleware "2.2.0"]
-                         [org.openvoxproject/ssl-utils "3.7.0"]
+                         [org.openvoxproject/ssl-utils "3.7.1"]
                          [org.openvoxproject/trapperkeeper "5.0.4"]
                          [org.openvoxproject/trapperkeeper "5.0.4" :classifier "test"]
                          [org.openvoxproject/trapperkeeper-webserver "12.1.0"]
