@@ -37,7 +37,7 @@
                          [org.openvoxproject/trapperkeeper-webserver "12.0.4" :classifier "test"]
                          [org.slf4j/slf4j-api ~slf4j-version]
                          [org.slf4j/jul-to-slf4j ~slf4j-version]
-                         [prismatic/schema "1.4.1"]]
+                         [prismatic/schema "1.4.2"]]
 
   :dependencies [[org.clojure/clojure]
                  [commons-io]
