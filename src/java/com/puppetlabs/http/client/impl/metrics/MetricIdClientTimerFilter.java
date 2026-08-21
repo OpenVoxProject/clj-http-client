@@ -1,7 +1,8 @@
 package com.puppetlabs.http.client.impl.metrics;
 
-import com.codahale.metrics.Metric;
-import com.codahale.metrics.MetricFilter;
+import io.dropwizard.metrics5.Metric;
+import io.dropwizard.metrics5.MetricFilter;
+import io.dropwizard.metrics5.MetricName;
 import com.puppetlabs.http.client.metrics.MetricIdClientTimer;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class MetricIdClientTimerFilter implements MetricFilter {
     }
 
     @Override
-    public boolean matches(String s, Metric metric) {
+    public boolean matches(MetricName name, Metric metric) {
         return metric.getClass().equals(MetricIdClientTimer.class) &&
                 ((MetricIdClientTimer) metric).
                         getMetricId().equals(metricId);
