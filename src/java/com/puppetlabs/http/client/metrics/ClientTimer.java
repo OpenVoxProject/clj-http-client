@@ -1,6 +1,6 @@
 package com.puppetlabs.http.client.metrics;
 
-import com.codahale.metrics.Timer;
+import io.dropwizard.metrics5.Timer;
 
 public abstract class ClientTimer  extends Timer {
     private final String metricName;

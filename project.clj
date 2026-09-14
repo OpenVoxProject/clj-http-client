@@ -21,7 +21,7 @@
                          [cheshire "6.2.0"]
                          [commons-codec "1.22.1"]
                          [commons-io "2.22.0"]
-                         [io.dropwizard.metrics/metrics-core "3.2.6"]
+                         [io.dropwizard.metrics5/metrics-core "5.0.7"]
                          [org.apache.httpcomponents/httpasyncclient "4.1.5"]
                          [org.bouncycastle/bcpkix-jdk18on "1.85"]
                          [org.bouncycastle/bcpkix-fips "1.0.8"]
@@ -41,7 +41,7 @@
 
   :dependencies [[org.clojure/clojure]
                  [commons-io]
-                 [io.dropwizard.metrics/metrics-core]
+                 [io.dropwizard.metrics5/metrics-core]
                  [org.apache.httpcomponents/httpasyncclient]
                  [org.openvoxproject/ssl-utils]
                  [org.openvoxproject/i18n]
@@ -69,7 +69,7 @@
              :test {:pedantic? :warn
                     :dependencies [[org.openvoxproject/trapperkeeper-webserver]
                                   [org.openvoxproject/trapperkeeper-webserver :classifier "test"]
-                                  [org.openvoxproject/ring-middleware]]}
+                                  [org.openvoxproject/ring-middleware :exclusions [io.dropwizard.metrics5/metrics-core]]]}
              :fips-deps {:dependencies [[org.bouncycastle/bcpkix-fips]
                                         [org.bouncycastle/bc-fips]
                                         [org.bouncycastle/bctls-fips]]

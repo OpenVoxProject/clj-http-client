@@ -2,7 +2,7 @@
   (:require [clojure.string :as clj-string]
             [puppetlabs.http.client.common :as common]
             [schema.core :as schema])
-  (:import (com.codahale.metrics MetricRegistry)
+  (:import (io.dropwizard.metrics5 MetricRegistry)
            (com.puppetlabs.http.client.metrics ClientMetricData Metrics
                                                Metrics$MetricType)))
 

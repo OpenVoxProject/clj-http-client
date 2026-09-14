@@ -1,6 +1,7 @@
 package com.puppetlabs.http.client.impl.metrics;
 
-import com.codahale.metrics.Metric;
+import io.dropwizard.metrics5.Metric;
+import io.dropwizard.metrics5.MetricName;
 import com.puppetlabs.http.client.metrics.UrlAndMethodClientTimer;
 
 public class UrlAndMethodClientTimerFilter extends UrlClientTimerFilter {
@@ -12,7 +13,7 @@ public class UrlAndMethodClientTimerFilter extends UrlClientTimerFilter {
     }
 
     @Override
-    public boolean matches(String s, Metric metric) {
+    public boolean matches(MetricName name, Metric metric) {
         if (metric.getClass().equals(UrlAndMethodClientTimer.class)) {
             UrlAndMethodClientTimer timer = (UrlAndMethodClientTimer) metric;
             return timer.getMethod().equals(this.method) &&

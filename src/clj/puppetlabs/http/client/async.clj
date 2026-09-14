@@ -16,7 +16,7 @@
            (org.apache.http.client.utils URIBuilder)
            (org.apache.http.entity ContentType)
            (org.apache.http.nio.client HttpAsyncClient)
-           (com.codahale.metrics MetricRegistry)
+           (io.dropwizard.metrics5 MetricRegistry)
            (java.util Locale)
            (java.net URI URL))
 

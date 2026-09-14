@@ -1,7 +1,8 @@
 package com.puppetlabs.http.client.impl.metrics;
 
-import com.codahale.metrics.Metric;
-import com.codahale.metrics.MetricFilter;
+import io.dropwizard.metrics5.Metric;
+import io.dropwizard.metrics5.MetricFilter;
+import io.dropwizard.metrics5.MetricName;
 import com.puppetlabs.http.client.metrics.ClientTimer;
 import com.puppetlabs.http.client.metrics.Metrics;
 
@@ -13,7 +14,7 @@ public class CategoryClientTimerMetricFilter implements MetricFilter {
     }
 
     @Override
-    public boolean matches(String s, Metric metric) {
+    public boolean matches(MetricName name, Metric metric) {
         return metric instanceof ClientTimer &&
                 ((ClientTimer) metric).isCategory(category);
     }

@@ -1,6 +1,6 @@
 package com.puppetlabs.http.client.impl;
 
-import com.codahale.metrics.Timer;
+import io.dropwizard.metrics5.Timer;
 import org.apache.http.concurrent.FutureCallback;
 
 import java.util.ArrayList;

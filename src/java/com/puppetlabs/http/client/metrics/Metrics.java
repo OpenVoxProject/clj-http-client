@@ -1,8 +1,7 @@
 package com.puppetlabs.http.client.metrics;
 
-import com.codahale.metrics.MetricFilter;
-import com.codahale.metrics.MetricRegistry;
-import com.codahale.metrics.Timer;
+import io.dropwizard.metrics5.MetricFilter;
+import io.dropwizard.metrics5.MetricRegistry;
 import com.puppetlabs.http.client.impl.metrics.CategoryClientTimerMetricFilter;
 import com.puppetlabs.http.client.impl.metrics.MetricIdClientTimerFilter;
 import com.puppetlabs.http.client.impl.metrics.TimerMetricData;
@@ -16,7 +15,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class Metrics {
     public static final String PUPPETLABS_NAMESPACE_PREFIX = "puppetlabs";
@@ -57,8 +55,8 @@ public class Metrics {
     private static List<UrlClientTimer> getUrlClientTimerArray(MetricRegistry registry,
                                                                MetricFilter filter) {
         List<UrlClientTimer> timerArray = new ArrayList<>();
-        for (Map.Entry<String, Timer> entry : registry.getTimers(filter).entrySet()) {
-            UrlClientTimer timer = (UrlClientTimer)entry.getValue();
+        for (var entry : registry.getTimers(filter).entrySet()) {
+            var timer = (UrlClientTimer) entry.getValue();
             timerArray.add(timer);
         }
         return timerArray;
@@ -67,8 +65,8 @@ public class Metrics {
     private static List<UrlAndMethodClientTimer> getUrlAndMethodClientTimerArray(MetricRegistry registry,
                                                                                  MetricFilter filter) {
         List<UrlAndMethodClientTimer> timerArray = new ArrayList<>();
-        for (Map.Entry<String, Timer> entry : registry.getTimers(filter).entrySet()) {
-            UrlAndMethodClientTimer timer = (UrlAndMethodClientTimer)entry.getValue();
+        for (var entry : registry.getTimers(filter).entrySet()) {
+            var timer = (UrlAndMethodClientTimer) entry.getValue();
             timerArray.add(timer);
         }
         return timerArray;
@@ -77,8 +75,8 @@ public class Metrics {
     private static List<MetricIdClientTimer> getMetricIdClientTimerArray(MetricRegistry registry,
                                                                          MetricFilter filter) {
         List<MetricIdClientTimer> timerArray = new ArrayList<>();
-        for (Map.Entry<String, Timer> entry : registry.getTimers(filter).entrySet()) {
-            MetricIdClientTimer timer = (MetricIdClientTimer)entry.getValue();
+        for (var entry : registry.getTimers(filter).entrySet()) {
+            var timer = (MetricIdClientTimer) entry.getValue();
             timerArray.add(timer);
         }
         return timerArray;
