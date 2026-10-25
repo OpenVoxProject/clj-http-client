@@ -1,7 +1,7 @@
 (ns puppetlabs.http.client.common
   (:import (java.net URL URI)
            (javax.net.ssl SSLContext)
-           (com.codahale.metrics MetricRegistry)
+           (io.dropwizard.metrics5 MetricRegistry)
            (clojure.lang IBlockingDeref)
            (java.io InputStream)
            (java.nio.charset Charset)

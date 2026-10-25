@@ -11,7 +11,7 @@
             [puppetlabs.trapperkeeper.testutils.logging :as testlogging]
             [puppetlabs.trapperkeeper.testutils.webserver :as testwebserver]
             [schema.test :as schema-test])
-  (:import (com.codahale.metrics MetricRegistry)
+  (:import (io.dropwizard.metrics5 MetricRegistry)
            (com.puppetlabs.http.client Async ClientOptions
                                        RequestOptions ResponseBodyType Sync)
            (com.puppetlabs.http.client.metrics ClientMetricData ClientTimer Metrics)

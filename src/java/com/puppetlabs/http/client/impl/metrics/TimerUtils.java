@@ -1,8 +1,9 @@
 package com.puppetlabs.http.client.impl.metrics;
 
-import com.codahale.metrics.Metric;
-import com.codahale.metrics.MetricRegistry;
-import com.codahale.metrics.Timer;
+import io.dropwizard.metrics5.Metric;
+import io.dropwizard.metrics5.MetricRegistry;
+import io.dropwizard.metrics5.Timer;
+import io.dropwizard.metrics5.MetricName;
 import com.puppetlabs.http.client.metrics.ClientTimer;
 import com.puppetlabs.http.client.metrics.MetricIdClientTimer;
 import com.puppetlabs.http.client.metrics.Metrics;
@@ -15,15 +16,16 @@ import org.slf4j.LoggerFactory;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 public class TimerUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(TimerUtils.class);
 
     private static ClientTimer getOrAddTimer(MetricRegistry metricRegistry,
-                                             String name,
+                                             MetricName name,
                                              ClientTimer newTimer) {
-        final Map<String, Metric> metrics = metricRegistry.getMetrics();
+        final Map<MetricName, Metric> metrics = metricRegistry.getMetrics();
         final Metric metric = metrics.get(name);
         if ( metric instanceof ClientTimer ) {
             return (ClientTimer) metric;
@@ -45,18 +47,15 @@ public class TimerUtils {
                                                                             String metricPrefix) {
         ArrayList<Timer.Context> timerContexts = new ArrayList<>();
         for (int i = 0; i < metricId.length; i++) {
-            ArrayList<String> currentId = new ArrayList<>();
-            for (int j = 0; j <= i; j++) {
-                currentId.add(metricId[j]);
-            }
+            ArrayList<String> currentId = new ArrayList<>(Arrays.asList(metricId).subList(0, i + 1));
             ArrayList<String> currentIdWithNamespace = new ArrayList<>();
             currentIdWithNamespace.add(Metrics.NAMESPACE_METRIC_ID);
             currentIdWithNamespace.addAll(currentId);
             currentIdWithNamespace.add(Metrics.NAMESPACE_FULL_RESPONSE);
-            String metric_name = MetricRegistry.name(metricPrefix,
+            MetricName metric_name = MetricRegistry.name(metricPrefix,
                     currentIdWithNamespace.toArray(new String[currentIdWithNamespace.size()]));
 
-            ClientTimer timer = new MetricIdClientTimer(metric_name, currentId, Metrics.MetricType.FULL_RESPONSE);
+            ClientTimer timer = new MetricIdClientTimer(metric_name.getKey(), currentId, Metrics.MetricType.FULL_RESPONSE);
             timerContexts.add(getOrAddTimer(registry, metric_name, timer).time());
         }
         return timerContexts;
@@ -73,15 +72,15 @@ public class TimerUtils {
                 final String strippedUrl = Metrics.urlToMetricUrl(requestLine.getUri());
                 final String method = requestLine.getMethod();
 
-                final String urlName = MetricRegistry.name(metricPrefix, Metrics.NAMESPACE_URL,
+                final MetricName urlName = MetricRegistry.name(metricPrefix, Metrics.NAMESPACE_URL,
                         strippedUrl, Metrics.NAMESPACE_FULL_RESPONSE);
-                final String urlAndMethodName = MetricRegistry.name(metricPrefix, Metrics.NAMESPACE_URL_AND_METHOD,
+                final MetricName urlAndMethodName = MetricRegistry.name(metricPrefix, Metrics.NAMESPACE_URL_AND_METHOD,
                         strippedUrl, method, Metrics.NAMESPACE_FULL_RESPONSE);
 
-                ClientTimer urlTimer = new UrlClientTimer(urlName, strippedUrl, Metrics.MetricType.FULL_RESPONSE);
+                ClientTimer urlTimer = new UrlClientTimer(urlName.getKey(), strippedUrl, Metrics.MetricType.FULL_RESPONSE);
                 timerContexts.add(getOrAddTimer(registry, urlName, urlTimer).time());
 
-                ClientTimer urlMethodTimer = new UrlAndMethodClientTimer(urlAndMethodName, strippedUrl,
+                ClientTimer urlMethodTimer = new UrlAndMethodClientTimer(urlAndMethodName.getKey(), strippedUrl,
                         method, Metrics.MetricType.FULL_RESPONSE);
                 timerContexts.add(getOrAddTimer(registry, urlAndMethodName, urlMethodTimer).time());
             } catch (URISyntaxException e) {

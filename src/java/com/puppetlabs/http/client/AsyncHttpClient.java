@@ -1,6 +1,6 @@
 package com.puppetlabs.http.client;
 
-import com.codahale.metrics.MetricRegistry;
+import io.dropwizard.metrics5.MetricRegistry;
 import com.puppetlabs.http.client.impl.Promise;
 
 import java.io.Closeable;
