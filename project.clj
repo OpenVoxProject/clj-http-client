@@ -18,7 +18,7 @@
   ;; :managed-dependencies. This prevents endless version conflicts due to deps of deps.
   ;; Renovate should keep the versions largely in sync between projects.
   :managed-dependencies [[org.clojure/clojure "1.12.6"]
-                         [cheshire "6.2.0"]
+                         [cheshire "6.2.1"]
                          [commons-codec "1.23.0"]
                          [commons-io "2.22.0"]
                          [io.dropwizard.metrics/metrics-core "3.2.6"]
